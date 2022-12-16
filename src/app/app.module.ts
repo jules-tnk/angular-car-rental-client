@@ -10,6 +10,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CarDetailComponent } from './car-detail/car-detail.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HistoryComponent } from './history/history.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HistoryComponent } from './history/history.component';
     SearchBarComponent,
     CarDetailComponent,
     ProfileComponent,
-    HistoryComponent
+    HistoryComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
