@@ -1,1 +1,20 @@
-<p>car-list works!</p>
+<!-- Header-->
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Go Whell Go Fast</h1>
+      <p class="lead fw-normal text-white-50 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Maxime mollitia,
+        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+
+      </p>
+    </div>
+  </div>
+</header>
+<div class="container px-4 px-lg-5 mt-5">
+  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <div class="col mb-5" *ngFor="let carDescription of carDescriptions">
+      <app-car-list-item [carDescription]="carDescription"></app-car-list-item>
+    </div>
+  </div>
+</div>

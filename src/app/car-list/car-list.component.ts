@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CarDescription} from "../model/carDescription";
+import {CatalogService} from "../services/catalog/catalog.service";
 
 @Component({
   selector: 'app-car-list',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarListComponent implements OnInit {
 
-  constructor() { }
+  carDescriptions: CarDescription[] = [];
+
+  constructor(private catalogService: CatalogService) { }
 
   ngOnInit(): void {
+    this.carDescriptions = this.catalogService.getAllCars();
   }
 
 }
