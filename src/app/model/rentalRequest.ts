@@ -4,5 +4,6 @@ export interface RentalRequest {
   userEmail: string,
   carDescriptionId: string,
   isWithDriver: boolean,
-  firstPayment: Payment;
+  startDate: string,
+  endDate: string
 }

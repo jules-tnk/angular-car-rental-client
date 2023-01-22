@@ -38,10 +38,6 @@ export class CatalogService {
     }
   }
 
-  retrieveCarDescriptions(){
-
-  }
-
   getAllCars() {
     return this.carDescriptions;
   }
