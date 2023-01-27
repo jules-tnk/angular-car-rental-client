@@ -14,13 +14,17 @@ import { HomeComponent } from './components/domain-components/home/home.componen
 import { CarListItemComponent } from './components/car-components/car-list-item/car-list-item.component';
 import { LoginComponent } from './components/auth-components/login/login.component';
 import { RegisterComponent } from './components/auth-components/register/register.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { RentalRequestComponent } from './components/rental-request/rental-request.component';
 import { AboutComponent } from './components/domain-components/about/about.component';
 import { ServicesComponent } from './components/domain-components/services/services.component';
 import { PricingComponent } from './components/domain-components/pricing/pricing.component';
 import { BlogComponent } from './components/domain-components/blog/blog.component';
 import { ContactComponent } from './components/domain-components/contact/contact.component';
+import {AuthenticationService} from "./services/authentication/authentication.service";
+import {AuthHttpInterceptorService} from "./services/http-interceptor/auth-http-interceptor.service";
+import {CatalogService} from "./services/catalog/catalog.service";
+import {TransactionService} from "./services/transaction/transaction.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +52,9 @@ import { ContactComponent } from './components/domain-components/contact/contact
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthenticationService, CatalogService, TransactionService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

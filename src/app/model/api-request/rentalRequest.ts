@@ -1,4 +1,3 @@
-import {Payment} from "./payment";
 
 export interface RentalRequest {
   userEmail: string,

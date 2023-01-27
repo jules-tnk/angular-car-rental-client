@@ -1,5 +1,8 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CarDescription} from "../../model/carDescription";
+import {API_PARAM} from "../../model/constants";
+import {HttpClient} from "@angular/common/http";
+import {catchError, Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +10,7 @@ import {CarDescription} from "../../model/carDescription";
 export class CatalogService {
   carDescriptions: CarDescription[] = [];
 
-  constructor() {
+  constructor(private http: HttpClient) {
     for (let i = 0; i < 5; i++) {
       this.carDescriptions.push(
         {
@@ -45,4 +48,37 @@ export class CatalogService {
   getCarDescriptionById(id: number) {
     return this.carDescriptions.find(cd => cd.id == id );
   }
+
+  getAllCarsFromApi(): Observable<CarDescription[]>{
+    let carsUrl: string = API_PARAM.BASE_URL+API_PARAM.GET_ALL_CAR_DESCRIPTION_PATH;
+    return this.http.get<CarDescription[]>(carsUrl).pipe(
+      catchError(this.handleError<CarDescription[]>("getAllCars", []))
+    )
+  }
+
+  getCarDescriptionByIdFromApi(id: number): Observable<CarDescription> {
+    let carUrl: string = API_PARAM.BASE_URL+API_PARAM.GET_ALL_CAR_DESCRIPTION_PATH+`/${id}`;
+    return this.http.get<CarDescription>(carUrl).pipe(
+      catchError(this.handleError<CarDescription>("getAllCars"))
+    )
+  }
+
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   *
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
 }
