@@ -6,16 +6,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared-components/navbar/navbar.component';
 import { FooterComponent } from './components/shared-components/footer/footer.component';
 import { CarListComponent } from './components/car-components/car-list/car-list.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { CarDetailComponent } from './components/car-components/car-detail/car-detail.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { HistoryComponent } from './components/history/history.component';
+import { ProfileComponent } from './components/user-component/profile/profile.component';
+import { HistoryComponent } from './components/user-component/history/history.component';
 import { HomeComponent } from './components/domain-components/home/home.component';
 import { CarListItemComponent } from './components/car-components/car-list-item/car-list-item.component';
 import { LoginComponent } from './components/auth-components/login/login.component';
 import { RegisterComponent } from './components/auth-components/register/register.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import { RentalRequestComponent } from './components/rental-request/rental-request.component';
+import { RentalRequestComponent } from './components/user-component/rental-request/rental-request.component';
 import { AboutComponent } from './components/domain-components/about/about.component';
 import { ServicesComponent } from './components/domain-components/services/services.component';
 import { PricingComponent } from './components/domain-components/pricing/pricing.component';
@@ -25,6 +24,9 @@ import {AuthenticationService} from "./services/authentication/authentication.se
 import {AuthHttpInterceptorService} from "./services/http-interceptor/auth-http-interceptor.service";
 import {CatalogService} from "./services/catalog/catalog.service";
 import {TransactionService} from "./services/transaction/transaction.service";
+import { LogoutComponent } from './components/auth-components/logout/logout.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { RegisterCompletedComponent } from './components/auth-components/register-completed/register-completed.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,6 @@ import {TransactionService} from "./services/transaction/transaction.service";
     NavbarComponent,
     FooterComponent,
     CarListComponent,
-    SearchBarComponent,
     CarDetailComponent,
     ProfileComponent,
     HistoryComponent,
@@ -45,13 +46,17 @@ import {TransactionService} from "./services/transaction/transaction.service";
     ServicesComponent,
     PricingComponent,
     BlogComponent,
-    ContactComponent
+    ContactComponent,
+    LogoutComponent,
+    RegisterCompletedComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
   providers: [AuthenticationService, CatalogService, TransactionService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true }
   ],

@@ -8,7 +8,7 @@ import {catchError, Observable, of} from "rxjs";
   providedIn: 'root'
 })
 export class CatalogService {
-  carDescriptions: CarDescription[] = [];
+  private carDescriptions: CarDescription[] = [];
 
   constructor(private http: HttpClient) {
     for (let i = 0; i < 5; i++) {

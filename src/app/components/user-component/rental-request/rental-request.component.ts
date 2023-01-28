@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CarDescription} from "../../model/carDescription";
+import {CarDescription} from "../../../model/carDescription";
 import {ActivatedRoute} from "@angular/router";
-import {CatalogService} from "../../services/catalog/catalog.service";
-import {TransactionService} from "../../services/transaction/transaction.service";
+import {CatalogService} from "../../../services/catalog/catalog.service";
+import {TransactionService} from "../../../services/transaction/transaction.service";
 
 @Component({
   selector: 'app-rental-request',

@@ -14,7 +14,17 @@ export class CarListComponent implements OnInit {
   constructor(private catalogService: CatalogService) { }
 
   ngOnInit(): void {
+    this.getAllCarsFromApi()
+  }
+
+  getAllCars(){
     this.carDescriptions = this.catalogService.getAllCars();
+  }
+
+  getAllCarsFromApi(){
+    this.catalogService.getAllCarsFromApi().subscribe(
+      carDescriptionsFromApi => this.carDescriptions = carDescriptionsFromApi
+    )
   }
 
 }

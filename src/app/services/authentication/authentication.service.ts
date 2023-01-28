@@ -1,94 +1,83 @@
 import { Injectable } from '@angular/core';
 import {User} from "../../model/user";
 import {LoginRequest} from "../../model/api-request/loginRequest";
-import {HttpClient} from "@angular/common/http";
-import {catchError, Observable, of} from "rxjs";
+import {HttpClient, HttpResponse} from "@angular/common/http";
+import {Observable, of} from "rxjs";
 import {LoginResponse} from "../../model/api-response/login-response";
-import {API_PARAM} from "../../model/constants";
+import {API_PARAM, LOCAL_STORAGE_KEY} from "../../model/constants";
+import {UserAuthInfo} from "../../model/userAuthInfo";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  currentUser?: User;
-  isUserAuthenticated: boolean = false;
-  sessionToken: string = "";
-  USER_AUTH_KEY: string = "USER_AUTH_KEY"
-  TOKEN_KEY: string = "TOKEN_KEY"
-
-
+  private userInfo: UserAuthInfo = {
+    currentUser: undefined,
+    isUserAuthenticated: false,
+    sessionToken: undefined,
+  }
 
   constructor(private http: HttpClient) {
-    this.loadUserAuthStatusFromLocalStorage();
+    this.loadUserInfoFromLocalStorage()
   }
 
-  isUserLoggedIn(): boolean {
-    this.loadUserAuthStatusFromLocalStorage()
-    return this.isUserAuthenticated;
+  register(newUser: User): Observable<HttpResponse<any>> {
+    let registerUrl = API_PARAM.BASE_URL + API_PARAM.REGISTER_PATH;
+    return this.http.post<any>(registerUrl, newUser, {observe: "response"})
   }
 
-  getUserEmail(): string {
-    if (this.currentUser){
-      return this.currentUser?.email;
-    }
-    return "";
-  }
-
-  register(newUser: User){
-
-  }
-
-  login(email: string, password: string){
+  login(email: string, password: string): Observable<HttpResponse<any>> {
     // create login request
     let loginRequest: LoginRequest = {email: email, password: password}
 
     //send login request
     let loginUrl: string = API_PARAM.BASE_URL+API_PARAM.LOGIN_PATH;
-    this.http.post<LoginResponse>(loginUrl, loginRequest).pipe(
-      catchError(this.handleError<LoginResponse>("userLogin"))
-    ).subscribe(
-      loginResponse => {
-        this.sessionToken = loginResponse.accessToken;
-        this.isUserAuthenticated = true;
-      }
-    )
-
-    // save received session token
-    this.saveSessionTokenInLocalStorage();
+    return this.http.post<LoginResponse>(loginUrl, loginRequest, {observe: "response"})
   }
 
   logout(){
     //send logout request
-    this.isUserAuthenticated = false;
-    this.TOKEN_KEY = "";
-    this.currentUser = undefined;
-    this.saveUserAuthStatusInLocalStorage();
-    this.saveSessionTokenInLocalStorage();
+
+    //update local user information
+    this.userInfo.isUserAuthenticated = false;
+    this.userInfo.currentUser = undefined;
+    this.userInfo.sessionToken = undefined;
+    this.saveUserInfoInLocalStorage();
   }
 
-  saveUserAuthStatusInLocalStorage(){
-    localStorage.setItem(this.USER_AUTH_KEY, JSON.stringify(this.isUserAuthenticated))
+  isUserLoggedIn(): boolean {
+    this.loadUserInfoFromLocalStorage()
+    return this.userInfo.isUserAuthenticated;
   }
 
-  loadUserAuthStatusFromLocalStorage(){
-    let savedUserAuthStatus = localStorage.getItem(this.USER_AUTH_KEY);
-    if (savedUserAuthStatus) {
-      this.isUserAuthenticated = JSON.parse(savedUserAuthStatus);
+  getUserEmail(): string {
+    this.loadUserInfoFromLocalStorage()
+    if (this.userInfo.currentUser?.email){
+      return this.userInfo.currentUser?.email;
+    }
+    return "";
+  }
+
+  setUserInfo(newUserInfo: UserAuthInfo) {
+    this.userInfo = newUserInfo;
+    this.saveUserInfoInLocalStorage();
+  }
+
+  saveUserInfoInLocalStorage(){
+    localStorage.setItem(LOCAL_STORAGE_KEY.USER_INFO, JSON.stringify(this.userInfo))
+  }
+
+  loadUserInfoFromLocalStorage(){
+    let userInfo = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO);
+    if (userInfo) {
+      this.userInfo = JSON.parse(userInfo);
     }
   }
 
-  saveSessionTokenInLocalStorage(){
-    localStorage.setItem(this.TOKEN_KEY, String(this.sessionToken))
-  }
-
-  loadSessionTokenFromLocalStorage(){
-    this.sessionToken = String(localStorage.getItem(this.TOKEN_KEY));
-  }
-
   getSessionToken(){
-    this.loadSessionTokenFromLocalStorage();
-    return this.sessionToken;
+    this.loadUserInfoFromLocalStorage();
+    return this.userInfo.sessionToken;
   }
 
   /**
