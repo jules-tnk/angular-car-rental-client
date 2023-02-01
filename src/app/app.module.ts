@@ -3,15 +3,30 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
-import { CarListComponent } from './car-list/car-list.component';
-import { SearchBarComponent } from './search-bar/search-bar.component';
-import { CarDetailComponent } from './car-detail/car-detail.component';
-import { ProfileComponent } from './profile/profile.component';
-import { HistoryComponent } from './history/history.component';
-import { HomeComponent } from './home/home.component';
-import { CarListItemComponent } from './car-list-item/car-list-item.component';
+import { NavbarComponent } from './components/shared-components/navbar/navbar.component';
+import { FooterComponent } from './components/shared-components/footer/footer.component';
+import { CarListComponent } from './components/car-components/car-list/car-list.component';
+import { CarDetailComponent } from './components/car-components/car-detail/car-detail.component';
+import { ProfileComponent } from './components/user-component/profile/profile.component';
+import { HistoryComponent } from './components/user-component/history/history.component';
+import { HomeComponent } from './components/domain-components/home/home.component';
+import { CarListItemComponent } from './components/car-components/car-list-item/car-list-item.component';
+import { LoginComponent } from './components/auth-components/login/login.component';
+import { RegisterComponent } from './components/auth-components/register/register.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { RentalRequestComponent } from './components/user-component/rental-request/rental-request.component';
+import { AboutComponent } from './components/domain-components/about/about.component';
+import { ServicesComponent } from './components/domain-components/services/services.component';
+import { PricingComponent } from './components/domain-components/pricing/pricing.component';
+import { BlogComponent } from './components/domain-components/blog/blog.component';
+import { ContactComponent } from './components/domain-components/contact/contact.component';
+import {AuthenticationService} from "./services/authentication/authentication.service";
+import {AuthHttpInterceptorService} from "./services/http-interceptor/auth-http-interceptor.service";
+import {CatalogService} from "./services/catalog/catalog.service";
+import {TransactionService} from "./services/transaction/transaction.service";
+import { LogoutComponent } from './components/auth-components/logout/logout.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { RegisterCompletedComponent } from './components/auth-components/register-completed/register-completed.component';
 
 @NgModule({
   declarations: [
@@ -19,18 +34,32 @@ import { CarListItemComponent } from './car-list-item/car-list-item.component';
     NavbarComponent,
     FooterComponent,
     CarListComponent,
-    SearchBarComponent,
     CarDetailComponent,
     ProfileComponent,
     HistoryComponent,
     HomeComponent,
-    CarListItemComponent
+    CarListItemComponent,
+    LoginComponent,
+    RegisterComponent,
+    RentalRequestComponent,
+    AboutComponent,
+    ServicesComponent,
+    PricingComponent,
+    BlogComponent,
+    ContactComponent,
+    LogoutComponent,
+    RegisterCompletedComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
+  providers: [AuthenticationService, CatalogService, TransactionService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true }
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
