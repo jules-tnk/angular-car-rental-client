@@ -17,17 +17,30 @@ export class RentalRequestComponent implements OnInit {
               private transactionService: TransactionService) { }
 
   ngOnInit(): void {
-    this.carDescription = this.getCarDescription();
+    this.getCarDescription();
   }
 
   private getCarDescription() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    return this.catalogService.getCarDescriptionById(id);
+    return this.catalogService.getCarDescriptionByIdFromApi(id).subscribe(
+      carDescriptionFromApi => this.carDescription = carDescriptionFromApi
+    );
   }
 
   rentCar(isWithDriver: boolean, startDateStr: string, endDateStr: string) {
     if (this.carDescription) {
-      this.transactionService.sendTransactionRequest(this.carDescription, isWithDriver, startDateStr, endDateStr);
+      this.transactionService.sendCarRentalRequest(this.carDescription,
+        isWithDriver,
+        startDateStr,
+        endDateStr).subscribe(
+          response => {
+            if (response.status === 201){
+              window.alert("Transaction created");
+            } else {
+              window.alert("Transaction error")
+            }
+          }
+      );
     }
   }
 

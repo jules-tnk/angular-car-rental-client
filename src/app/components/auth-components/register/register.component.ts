@@ -11,7 +11,8 @@ import {Router} from "@angular/router";
 export class RegisterComponent implements OnInit {
 
   @Input()
-  newUser: User = {email: "", firstName: "", lastName: "", password: "", phoneNumber: ""};
+  newUser: User = {email: "newuser@gmail.com",
+    firstName: "Juju", lastName: "Loulou", password: "sacarina", phoneNumber: 608895423};
 
   constructor(private authService: AuthenticationService,
               private router: Router,) { }
@@ -19,11 +20,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async register() {
+  async register(repeatPassword: string) {
+    if (repeatPassword != this.newUser.password){
+      window.alert("The passwords do not match")
+      return;
+    }
     this.authService.register(this.newUser).subscribe(
       response => {
-        let isRegisterSuccess: boolean = (response.status === 200);
-        if (isRegisterSuccess) {
+        if (response.status === 400) {
+          window.alert("Email already taken")
+        }
+        if (response.status === 200) {
           this.router.navigate(["/register/complete"]);
         }
       }

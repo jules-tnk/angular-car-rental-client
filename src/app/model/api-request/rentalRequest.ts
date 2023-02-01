@@ -1,8 +1,7 @@
-
 export interface RentalRequest {
-  userEmail: string,
-  carDescriptionId: string,
-  isWithDriver: boolean,
-  startDate: string,
-  endDate: string
+  carDescriptionId: number;
+  startDateString: string;
+  endDateString: string;
+  isWithDriver: boolean;
+
 }

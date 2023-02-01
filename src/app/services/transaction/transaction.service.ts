@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {CarDescription} from "../../model/carDescription";
 import {AuthenticationService} from "../authentication/authentication.service";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {RentalRequest} from "../../model/api-request/rentalRequest";
+import {API_PARAM} from "../../model/constants";
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +15,23 @@ export class TransactionService {
               private http: HttpClient) {
   }
 
-  sendTransactionRequest(carDescription: CarDescription, isWithDriver: boolean, startDateStr: string, endDateStr: string) {
-    let userEmail: string = this.authService.getUserEmail();
+  sendCarRentalRequest(carDescription: CarDescription,
+                       isWithDriver: boolean,
+                       startDateStr: string,
+                       endDateStr: string): Observable<HttpResponse<any>> {
+    let rentalRequestUrl = API_PARAM.BASE_URL + API_PARAM.RENTAL_REQUEST_PATH;
+    window.alert("Request path "+rentalRequestUrl)
 
-    let newRentalRequest = {
-      userEmail: userEmail,
+    let newRentalRequest: RentalRequest = {
       carDescriptionId: carDescription.id,
       isWithDriver: isWithDriver,
-      startDateStr: startDateStr,
-      endDateStr: endDateStr
+      startDateString: startDateStr,
+      endDateString: endDateStr
     }
 
-    window.alert(JSON.stringify(newRentalRequest));
+    window.alert(`Request : ${JSON.stringify(newRentalRequest)}`);
 
-    //send new rental request to backend
-    //redirect to result page component
+    return this.http.post(rentalRequestUrl, newRentalRequest, {observe: 'response'});
   }
 
 }

@@ -76,8 +76,11 @@ export class AuthenticationService {
   }
 
   getSessionToken(){
-    this.loadUserInfoFromLocalStorage();
-    return this.userInfo.sessionToken;
+    if (this.isUserLoggedIn()){
+      this.loadUserInfoFromLocalStorage();
+      return this.userInfo.sessionToken;
+    }
+    return;
   }
 
   /**

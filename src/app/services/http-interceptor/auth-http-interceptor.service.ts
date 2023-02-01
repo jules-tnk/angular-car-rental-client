@@ -11,9 +11,10 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
 
   constructor(private authService: AuthenticationService) {
   }
-  intercept(req: HttpRequest<any>, next: HttpHandler):
-    Observable<HttpEvent<any>> {
-    return next.handle(req);
+  intercept(req: HttpRequest<any>,
+            next: HttpHandler): Observable<HttpEvent<any>> {
+    return this.addSessionTokenToRequest(req, next)
+    //return next.handle(req);
   }
 
 
@@ -22,15 +23,21 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
     const authToken: string|undefined = this.authService.getSessionToken();
 
     if (authToken){
+      //window.alert(`TOKEN: ${authToken}`);
       // Clone the request and replace the original headers with
       // cloned headers, updated with the authorization.
+      //const authReq = req.clone({ setHeaders: { Authorization: "Bearer "+authToken } });
       const authReq = req.clone({
-        headers: req.headers.set('Authorization', authToken)
+        headers: req.headers.set('Authorization', 'Bearer ' + authToken)
       });
+      // .alert("NO TOKEN "+JSON.stringify(req));
+      window.alert("TOKEN "+JSON.stringify(authReq));
+      //return next.handle(req);
+      return next.handle(authReq);
     }
 
-    //// Clone the request and set the new header in one step.
-    // const authReq = req.clone({ setHeaders: { Authorization: authToken } });
+
+    window.alert("NO TOKEN "+JSON.stringify(req));
 
     // send cloned request with header to the next handler.
     return next.handle(req);
