@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
       window.alert("The passwords do not match")
       return;
     }
+    this.authService.logout();
     this.authService.register(this.newUser).subscribe(
       response => {
         if (response.status === 200) {

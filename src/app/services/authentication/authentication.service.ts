@@ -34,7 +34,7 @@ export class AuthenticationService {
     //send login request
     let loginUrl: string = API_PARAM.BASE_URL+API_PARAM.LOGIN_PATH;
     return this.http.post<LoginResponse>(loginUrl, loginRequest, {observe: "response"}).pipe(
-      catchError(this.handleError<HttpResponse<any>>("login"))
+      catchError(this.handleLoginError<HttpResponse<any>>("login"))
     )
   }
 
@@ -107,6 +107,17 @@ export class AuthenticationService {
         JSON.stringify(error.error.message)+"\n"+
         JSON.stringify(error.message)
       )
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  private handleLoginError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      alert("Incorrect credentials")
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

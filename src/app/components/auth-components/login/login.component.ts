@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  emailInput: string = "juju@gmail.com";
+  emailInput: string = "erl@gmail.com";
   passwordInput: string = "sacarina";
 
   constructor(private authService: AuthenticationService,
@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(["/profile"]);
           }
         }
+
+
       }
     );
   }

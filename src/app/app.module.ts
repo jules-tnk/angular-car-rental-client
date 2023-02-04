@@ -21,12 +21,15 @@ import { PricingComponent } from './components/domain-components/pricing/pricing
 import { BlogComponent } from './components/domain-components/blog/blog.component';
 import { ContactComponent } from './components/domain-components/contact/contact.component';
 import {AuthenticationService} from "./services/authentication/authentication.service";
-import {AuthHttpInterceptorService} from "./services/http-interceptor/auth-http-interceptor.service";
+import {AuthHttpInterceptorService} from "./services/http-interceptor/auth-interceptor/auth-http-interceptor.service";
 import {CatalogService} from "./services/catalog/catalog.service";
 import {TransactionService} from "./services/transaction/transaction.service";
 import { LogoutComponent } from './components/auth-components/logout/logout.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterCompletedComponent } from './components/auth-components/register-completed/register-completed.component';
+import {
+  HttpResponseInterceptor
+} from "./services/http-interceptor/response-interceptor/http-response-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -57,8 +60,11 @@ import { RegisterCompletedComponent } from './components/auth-components/registe
         FormsModule,
         ReactiveFormsModule
     ],
-  providers: [AuthenticationService, CatalogService, TransactionService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true }
+  providers: [AuthenticationService,
+    CatalogService,
+    TransactionService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpResponseInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

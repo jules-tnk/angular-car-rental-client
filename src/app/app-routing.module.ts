@@ -23,7 +23,6 @@ const routes: Routes = [
   {path:'pricing', component: PricingComponent},
   {path:'blog', component: BlogComponent},
   {path:'contact', component: ContactComponent},
-  {path: "rent/:id", component: RentalRequestComponent},
   {path: 'detail/:id', component: CarDetailComponent},
   {path: "catalog", component: CarListComponent},
   {path: "register", component: RegisterComponent},
@@ -32,6 +31,7 @@ const routes: Routes = [
   {path: "logout", component: LogoutComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   // guarded routes
+  {path: "rent/:id", component: RentalRequestComponent, canActivate: [authGuard]},
   {path: "profile", component: ProfileComponent, canActivate: [authGuard]},
 
 ];

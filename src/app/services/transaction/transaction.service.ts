@@ -28,8 +28,11 @@ export class TransactionService {
       endDateString: endDateStr
     }
 
-
     return this.http.post(rentalRequestUrl, newRentalRequest, {observe: 'response'});
+  }
+
+  getCarRentalHistory(){
+
   }
 
 }
