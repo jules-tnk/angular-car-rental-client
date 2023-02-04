@@ -31,6 +31,12 @@ export class TransactionService {
     return this.http.post(rentalRequestUrl, newRentalRequest, {observe: 'response'});
   }
 
+
+  cancelCarRental(carRentalId: number){
+    let cancelUrl: string = API_PARAM.BASE_URL + API_PARAM.CANCEL_RENTAL_PATH + `/${carRentalId}`;
+
+  }
+
   getCarRentalHistory(){
 
   }

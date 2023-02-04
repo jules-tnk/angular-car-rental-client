@@ -6,6 +6,7 @@ import {catchError, Observable, of} from "rxjs";
 import {LoginResponse} from "../../model/api-response/login-response";
 import {API_PARAM, LOCAL_STORAGE_KEY} from "../../model/constants";
 import {UserAuthInfo} from "../../model/userAuthInfo";
+import {ProfileResponse} from "../../model/api-response/profileResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +91,13 @@ export class AuthenticationService {
     return;
   }
 
+  getProfileInfo(): Observable<ProfileResponse>{
+    let profileUrl: string = API_PARAM.BASE_URL + API_PARAM.PROFILE_PATH;
+    return this.http.get<ProfileResponse>(profileUrl).pipe(
+      catchError(this.handleProfileError<ProfileResponse>("getProfile"))
+    )
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -118,6 +126,17 @@ export class AuthenticationService {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
       alert("Incorrect credentials")
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  private handleProfileError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      alert("Error getting the profile")
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

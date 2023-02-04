@@ -7,11 +7,13 @@ import {
 } from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {AuthenticationService} from "../../authentication/authentication.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class HttpResponseInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService,
+              private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
@@ -28,6 +30,8 @@ export class HttpResponseInterceptor implements HttpInterceptor {
           if(error.status === 401) {
             if (this.authService.isUserLoggedIn()){
               alert('Your session has expired.')
+              this.authService.logout();
+              this.router.navigate(["/login"]);
             }
             this.authService.logout();
           }

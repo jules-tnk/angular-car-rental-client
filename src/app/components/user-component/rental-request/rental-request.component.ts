@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CarDescription} from "../../../model/carDescription";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CatalogService} from "../../../services/catalog/catalog.service";
 import {TransactionService} from "../../../services/transaction/transaction.service";
 
@@ -13,6 +13,7 @@ export class RentalRequestComponent implements OnInit {
   carDescription?: CarDescription;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private catalogService: CatalogService,
               private transactionService: TransactionService) { }
 
@@ -36,6 +37,7 @@ export class RentalRequestComponent implements OnInit {
           response => {
             if (response.status === 201){
               window.alert("Transaction created");
+              this.router.navigate(["/profile"]);
             } else {
               window.alert("Transaction error")
             }
