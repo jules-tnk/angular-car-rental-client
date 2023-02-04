@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
 
   @Input()
   newUser: User = {email: "newuser@gmail.com",
-    firstName: "Juju", lastName: "Loulou", password: "sacarina", phoneNumber: 608895423};
+    firstName: "Juju", lastName: "Loulou", password: "sacarina", phoneNumber: 608895423, role:""};
 
   constructor(private authService: AuthenticationService,
               private router: Router,) { }
@@ -27,11 +27,10 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.register(this.newUser).subscribe(
       response => {
-        if (response.status === 400) {
-          window.alert("Email already taken")
-        }
         if (response.status === 200) {
           this.router.navigate(["/register/complete"]);
+        } else {
+          window.alert("Error while creating user")
         }
       }
     );

@@ -31,13 +31,13 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
         headers: req.headers.set('Authorization', 'Bearer ' + authToken)
       });
       // .alert("NO TOKEN "+JSON.stringify(req));
-      window.alert("TOKEN "+JSON.stringify(authReq));
+      console.log("TOKEN "+JSON.stringify(authReq));
       //return next.handle(req);
       return next.handle(authReq);
     }
 
 
-    window.alert("NO TOKEN "+JSON.stringify(req));
+    console.log("NO TOKEN "+JSON.stringify(req));
 
     // send cloned request with header to the next handler.
     return next.handle(req);

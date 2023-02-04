@@ -14,6 +14,7 @@ import {LogoutComponent} from "./components/auth-components/logout/logout.compon
 import {RegisterComponent} from "./components/auth-components/register/register.component";
 import {RegisterCompletedComponent} from "./components/auth-components/register-completed/register-completed.component";
 import {ProfileComponent} from "./components/user-component/profile/profile.component";
+import {authGuard} from "./guard/auth.guard";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -29,8 +30,10 @@ const routes: Routes = [
   {path: "register/complete", component: RegisterCompletedComponent},
   {path: "login", component: LoginComponent},
   {path: "logout", component: LogoutComponent},
-  {path: "profile", component: ProfileComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'}
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  // guarded routes
+  {path: "profile", component: ProfileComponent, canActivate: [authGuard]},
+
 ];
 
 @NgModule({

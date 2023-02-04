@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../../model/user";
 import {LoginRequest} from "../../model/api-request/loginRequest";
 import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Observable, of} from "rxjs";
+import {catchError, Observable, of} from "rxjs";
 import {LoginResponse} from "../../model/api-response/login-response";
 import {API_PARAM, LOCAL_STORAGE_KEY} from "../../model/constants";
 import {UserAuthInfo} from "../../model/userAuthInfo";
@@ -33,7 +33,9 @@ export class AuthenticationService {
 
     //send login request
     let loginUrl: string = API_PARAM.BASE_URL+API_PARAM.LOGIN_PATH;
-    return this.http.post<LoginResponse>(loginUrl, loginRequest, {observe: "response"})
+    return this.http.post<LoginResponse>(loginUrl, loginRequest, {observe: "response"}).pipe(
+      catchError(this.handleError<HttpResponse<any>>("login"))
+    )
   }
 
   logout(){
@@ -62,6 +64,11 @@ export class AuthenticationService {
   setUserInfo(newUserInfo: UserAuthInfo) {
     this.userInfo = newUserInfo;
     this.saveUserInfoInLocalStorage();
+  }
+
+  getUserInfo(): UserAuthInfo {
+    this.loadUserInfoFromLocalStorage()
+    return this.userInfo;
   }
 
   saveUserInfoInLocalStorage(){
@@ -95,7 +102,11 @@ export class AuthenticationService {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
+      window.alert(
+        JSON.stringify(error.error.exception)+"\n"+
+        JSON.stringify(error.error.message)+"\n"+
+        JSON.stringify(error.message)
+      )
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

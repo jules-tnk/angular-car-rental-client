@@ -30,10 +30,10 @@ export class LoginComponent implements OnInit {
               sessionToken: loginResponse.accessToken,
               isUserAuthenticated: true,
             }
+            console.log(JSON.stringify(newUserInfo))
             this.authService.setUserInfo(newUserInfo);
             this.router.navigate(["/profile"]);
           }
-          //window.alert(JSON.stringify(loginResponse));
         }
       }
     );

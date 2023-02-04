@@ -20,7 +20,6 @@ export class TransactionService {
                        startDateStr: string,
                        endDateStr: string): Observable<HttpResponse<any>> {
     let rentalRequestUrl = API_PARAM.BASE_URL + API_PARAM.RENTAL_REQUEST_PATH;
-    window.alert("Request path "+rentalRequestUrl)
 
     let newRentalRequest: RentalRequest = {
       carDescriptionId: carDescription.id,
@@ -29,7 +28,6 @@ export class TransactionService {
       endDateString: endDateStr
     }
 
-    window.alert(`Request : ${JSON.stringify(newRentalRequest)}`);
 
     return this.http.post(rentalRequestUrl, newRentalRequest, {observe: 'response'});
   }
