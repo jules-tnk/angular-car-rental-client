@@ -1,0 +1,54 @@
+<section style="background-color: #eee;">
+  <div class="container py-5" *ngIf="mission">
+    <div class="row d-flex justify-content-center">
+      <div class="col-8 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Car rental {{mission.id}}</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Car model</h6>
+            </div>
+            <span class="text-muted">{{mission.carModel}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Start date</h6>
+            </div>
+            <span class="text-muted">{{mission.startDate}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">End date</h6>
+            </div>
+            <span class="text-muted">{{mission.endDate}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Status</h6>
+            </div>
+            <span class="text-muted">{{mission.status}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div class="text-success">
+              <h6 class="my-0">Tenant email</h6>
+            </div>
+            <span class="text-success" *ngIf="mission.driverEmail">
+            {{mission.tenantEmail}}
+          </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div class="text-success">
+              <h6 class="my-0">Tenant phone number</h6>
+            </div>
+            <span class="text-success" *ngIf="mission.driverPhoneNumber">
+            {{mission.tenantPhoneNumber}}
+          </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -29,6 +29,21 @@ export class RentalRequestComponent implements OnInit {
   }
 
   rentCar(isWithDriver: boolean, startDateStr: string, endDateStr: string) {
+
+    // check if dates are filled
+    if (startDateStr=="" || endDateStr=="") {
+      window.alert("Start date and end date must be filled");
+      return;
+    }
+
+    // check if start date is before end date
+    let startDate: Date = new Date(startDateStr);
+    let endDate: Date = new Date(endDateStr);
+    if (startDate>endDate) {
+      window.alert("Start date must be before end date");
+      return;
+    }
+
     if (this.carDescription) {
       this.transactionService.sendCarRentalRequest(this.carDescription,
         isWithDriver,
@@ -36,7 +51,6 @@ export class RentalRequestComponent implements OnInit {
         endDateStr).subscribe(
           response => {
             if (response.status === 201){
-              window.alert("Transaction created");
               this.router.navigate(["/profile"]);
             } else {
               window.alert("Transaction error")

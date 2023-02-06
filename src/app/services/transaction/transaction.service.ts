@@ -5,6 +5,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {RentalRequest} from "../../model/api-request/rentalRequest";
 import {API_PARAM} from "../../model/constants";
+import {CarRental} from "../../model/carRental";
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,13 @@ export class TransactionService {
   cancelCarRental(carRentalId: number){
     let cancelUrl: string = API_PARAM.BASE_URL + API_PARAM.CANCEL_RENTAL_PATH + `/${carRentalId}`;
 
+    return this.http.get(cancelUrl, {observe: 'response'})
+
   }
 
-  getCarRentalHistory(){
-
+  getCarRental(carRentalId: number): Observable<CarRental>{
+    let carRentalUrl = API_PARAM.BASE_URL + API_PARAM.RENTAL_DETAIL_PATH + `/${carRentalId}`;
+    return this.http.get<CarRental>(carRentalUrl);
   }
 
 }

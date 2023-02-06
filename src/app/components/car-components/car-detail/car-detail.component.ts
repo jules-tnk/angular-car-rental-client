@@ -20,11 +20,6 @@ export class CarDetailComponent implements OnInit {
     this.getCarDescriptionFromApi();
   }
 
-  private getCarDescription() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.carDescription = this.catalogService.getCarDescriptionById(id);
-  }
-
   private getCarDescriptionFromApi(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.catalogService.getCarDescriptionByIdFromApi(id).subscribe(

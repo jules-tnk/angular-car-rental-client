@@ -37,6 +37,7 @@ export class HttpResponseInterceptor implements HttpInterceptor {
           }
           else if(error.status === 404) {
             alert('Page Not Found!')
+            this.router.navigate(["/profile"]);
           }
         }
       })

@@ -30,6 +30,8 @@ import { RegisterCompletedComponent } from './components/auth-components/registe
 import {
   HttpResponseInterceptor
 } from "./services/http-interceptor/response-interceptor/http-response-interceptor.service";
+import { CarRentalDetailComponent } from './components/user-component/car-rental-detail/car-rental-detail.component';
+import { MissionDetailComponent } from './components/user-component/mission-detail/mission-detail.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import {
     BlogComponent,
     ContactComponent,
     LogoutComponent,
-    RegisterCompletedComponent
+    RegisterCompletedComponent,
+    CarRentalDetailComponent,
+    MissionDetailComponent
   ],
     imports: [
         BrowserModule,

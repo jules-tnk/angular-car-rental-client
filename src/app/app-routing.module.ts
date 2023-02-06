@@ -15,6 +15,8 @@ import {RegisterComponent} from "./components/auth-components/register/register.
 import {RegisterCompletedComponent} from "./components/auth-components/register-completed/register-completed.component";
 import {ProfileComponent} from "./components/user-component/profile/profile.component";
 import {authGuard} from "./guard/auth.guard";
+import {CarRentalDetailComponent} from "./components/user-component/car-rental-detail/car-rental-detail.component";
+import {MissionDetailComponent} from "./components/user-component/mission-detail/mission-detail.component";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -33,6 +35,8 @@ const routes: Routes = [
   // guarded routes
   {path: "rent/:id", component: RentalRequestComponent, canActivate: [authGuard]},
   {path: "profile", component: ProfileComponent, canActivate: [authGuard]},
+  {path: "rent/history/:id", component: CarRentalDetailComponent, canActivate: [authGuard]},
+  {path: "mission/history/:id", component: MissionDetailComponent, canActivate: [authGuard]},
 
 ];
 

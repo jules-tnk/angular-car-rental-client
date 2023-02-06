@@ -7,5 +7,7 @@ export interface CarRental{
   status: string;
   isWithDriver: boolean;
   tenantEmail: string;
+  tenantPhoneNumber: string;
   driverEmail: string;
+  driverPhoneNumber: string;
 }
