@@ -4,7 +4,7 @@ import {LoginRequest} from "../../model/api-request/loginRequest";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {catchError, Observable, of} from "rxjs";
 import {LoginResponse} from "../../model/api-response/login-response";
-import {API_PARAM, LOCAL_STORAGE_KEY} from "../../model/constants";
+import {apiParam, localStorageKey} from "../../model/constants";
 import {UserAuthInfo} from "../../model/userAuthInfo";
 import {ProfileResponse} from "../../model/api-response/profileResponse";
 
@@ -24,8 +24,10 @@ export class AuthenticationService {
   }
 
   register(newUser: User): Observable<HttpResponse<any>> {
-    let registerUrl = API_PARAM.BASE_URL + API_PARAM.REGISTER_PATH;
-    return this.http.post<any>(registerUrl, newUser, {observe: "response"})
+    let registerUrl = apiParam.BASE_URL + apiParam.REGISTER_PATH;
+    return this.http.post<any>(registerUrl, newUser, {observe: "response"}).pipe(
+      catchError(this.handleRegistrationError<HttpResponse<any>>("register"))
+    )
   }
 
   login(email: string, password: string): Observable<HttpResponse<any>> {
@@ -33,7 +35,7 @@ export class AuthenticationService {
     let loginRequest: LoginRequest = {email: email, password: password}
 
     //send login request
-    let loginUrl: string = API_PARAM.BASE_URL+API_PARAM.LOGIN_PATH;
+    let loginUrl: string = apiParam.BASE_URL+apiParam.LOGIN_PATH;
     return this.http.post<LoginResponse>(loginUrl, loginRequest, {observe: "response"}).pipe(
       catchError(this.handleLoginError<HttpResponse<any>>("login"))
     )
@@ -73,11 +75,11 @@ export class AuthenticationService {
   }
 
   saveUserInfoInLocalStorage(){
-    localStorage.setItem(LOCAL_STORAGE_KEY.USER_INFO, JSON.stringify(this.userInfo))
+    localStorage.setItem(localStorageKey.USER_INFO, JSON.stringify(this.userInfo))
   }
 
   loadUserInfoFromLocalStorage(){
-    let userInfo = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO);
+    let userInfo = localStorage.getItem(localStorageKey.USER_INFO);
     if (userInfo) {
       this.userInfo = JSON.parse(userInfo);
     }
@@ -92,7 +94,7 @@ export class AuthenticationService {
   }
 
   getProfileInfo(): Observable<ProfileResponse>{
-    let profileUrl: string = API_PARAM.BASE_URL + API_PARAM.PROFILE_PATH;
+    let profileUrl: string = apiParam.BASE_URL + apiParam.PROFILE_PATH;
     return this.http.get<ProfileResponse>(profileUrl).pipe(
       catchError(this.handleProfileError<ProfileResponse>("getProfile"))
     )
@@ -136,7 +138,21 @@ export class AuthenticationService {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-      alert("Error getting the profile")
+      //alert("Error getting the profile");
+      //alert(JSON.stringify(error));
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  private handleRegistrationError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      if (error.status == 400){
+        alert("Email already exists");
+      }
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

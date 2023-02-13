@@ -32,6 +32,9 @@ import {
 } from "./services/http-interceptor/response-interceptor/http-response-interceptor.service";
 import { CarRentalDetailComponent } from './components/user-component/car-rental-detail/car-rental-detail.component';
 import { MissionDetailComponent } from './components/user-component/mission-detail/mission-detail.component';
+import { CarRentalManageListComponent } from './components/user-component/car-rental-manage-list/car-rental-manage-list.component';
+import { CarRentalManageDetailComponent } from './components/user-component/car-rental-manage-detail/car-rental-manage-detail.component';
+import { AddPaymentComponent } from './components/user-component/add-payment/add-payment.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,10 @@ import { MissionDetailComponent } from './components/user-component/mission-deta
     LogoutComponent,
     RegisterCompletedComponent,
     CarRentalDetailComponent,
-    MissionDetailComponent
+    MissionDetailComponent,
+    CarRentalManageListComponent,
+    CarRentalManageDetailComponent,
+    AddPaymentComponent
   ],
     imports: [
         BrowserModule,

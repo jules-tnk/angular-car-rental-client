@@ -1,0 +1,36 @@
+<section style="background-color: #eee;">
+  <div class="container py-5">
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-10">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mb-4"><b>Rental history</b></p>
+                <div class="row" *ngFor="let carRental of carRentalHistory">
+                  <div class="col-sm-3">
+                    <p class="mb-0">{{carRental.carModel}}</p>
+                  </div>
+                  <div class="col-sm-7">
+                    <p class="text-muted mb-0">
+                      from {{carRental.startDate}} to {{carRental.endDate}}
+                    </p>
+                  </div>
+                  <div class="col-sm-2">
+                    <button class="btn btn-primary"
+                            routerLink="/agent/manage/rent/{{carRental.id}}"
+                    >Details</button>
+                  </div>
+                  <div class="col-12">
+                    <hr>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

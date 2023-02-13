@@ -25,6 +25,12 @@ export class RegisterComponent implements OnInit {
       window.alert("The passwords do not match")
       return;
     }
+
+    if (!this.checkEmailByRegex(this.newUser.email)){
+          window.alert("Invalid email")
+          return;
+    }
+
     this.authService.logout();
     this.authService.register(this.newUser).subscribe(
       response => {
@@ -36,4 +42,10 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
+  checkEmailByRegex(email: string): boolean {
+    let emailRegex = new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+    return emailRegex.test(email);
+  }
+
 }

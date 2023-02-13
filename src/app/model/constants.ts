@@ -1,16 +1,30 @@
-export const API_PARAM = {
+export const apiParam = {
   BASE_URL: "http://localhost:8080",
-  GET_ALL_CAR_DESCRIPTION_PATH: "/api-public/car-description",
-  RENTAL_REQUEST_PATH: "/api-client/rental",
-  RENTAL_DETAIL_PATH: "/api-client/history",
-  CANCEL_RENTAL_PATH: "/api-client/cancel",
-  GET_USER_PROFILE_PATH: "",
+  /*PUBLIC API*/
   LOGIN_PATH: "/login",
   LOGOUT_PATH: "/logout",
   REGISTER_PATH: "/register",
   PROFILE_PATH: "/api-client/profile",
+  GET_ALL_CAR_DESCRIPTION_PATH: "/api-public/car-description",
+
+  /*CLIENT API*/
+  RENTAL_REQUEST_PATH: "/api-client/rental",
+  RENTAL_DETAIL_PATH: "/api-client/history",
+  CANCEL_RENTAL_PATH: "/api-client/cancel",
+
+  /*AGENT API*/
+  RENTAL_HISTORY_PATH: "/api-agent/rental/history",
+  ADD_PAYMENT_PATH: "/api-agent/add/payment",
+  UPDATE_RENTAL_STATUS_PATH: "/api-agent/rental/update-status",
+
 }
 
-export const LOCAL_STORAGE_KEY = {
+export const localStorageKey = {
   USER_INFO: "USER_INFO_KEY"
+}
+
+export const userRole = {
+  CLIENT: "CLIENT",
+  AGENT: "AGENT",
+  DRIVER: "DRIVER",
 }

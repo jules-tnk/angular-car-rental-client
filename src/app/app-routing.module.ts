@@ -17,6 +17,11 @@ import {ProfileComponent} from "./components/user-component/profile/profile.comp
 import {authGuard} from "./guard/auth.guard";
 import {CarRentalDetailComponent} from "./components/user-component/car-rental-detail/car-rental-detail.component";
 import {MissionDetailComponent} from "./components/user-component/mission-detail/mission-detail.component";
+import {CarRentalManageListComponent} from "./components/user-component/car-rental-manage-list/car-rental-manage-list.component";
+import {
+  CarRentalManageDetailComponent
+} from "./components/user-component/car-rental-manage-detail/car-rental-manage-detail.component";
+import {AddPaymentComponent} from "./components/user-component/add-payment/add-payment.component";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -32,12 +37,15 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "logout", component: LogoutComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
+
   // guarded routes
   {path: "rent/:id", component: RentalRequestComponent, canActivate: [authGuard]},
   {path: "profile", component: ProfileComponent, canActivate: [authGuard]},
   {path: "rent/history/:id", component: CarRentalDetailComponent, canActivate: [authGuard]},
   {path: "mission/history/:id", component: MissionDetailComponent, canActivate: [authGuard]},
-
+  {path: "agent/manage/rent", component: CarRentalManageListComponent, canActivate: [authGuard]},
+  {path: "agent/manage/rent/:id", component: CarRentalManageDetailComponent, canActivate: [authGuard]},
+  {path: "agent/manage/payment/add/:id", component: AddPaymentComponent, canActivate: [authGuard]},
 ];
 
 @NgModule({

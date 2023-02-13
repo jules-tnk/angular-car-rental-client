@@ -47,17 +47,10 @@
               <li class="list-group-item" *ngFor="let payment of carRental.payments">
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1">{{payment.method}}</h5>
-                  <small>{{payment.date}}</small>
                   <small>{{payment.amount}}</small>
                 </div>
               </li>
             </ul>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Status</h6>
-            </div>
-            <span class="text-muted">{{carRental.status}}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div class="text-success">
@@ -65,10 +58,27 @@
             </div>
             <span class="text-success" *ngIf="carRental.isPaymentCompleted">
             YES
-          </span>
+            </span>
             <span class="text-success" *ngIf="!carRental.isPaymentCompleted">
             NO
-          </span>
+              <button class="btn btn-secondary" routerLink="/agent/manage/payment/add/{{carRental.id}}" >Add payment</button>
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Status</h6>
+            </div>
+            <span class="text-muted">
+              {{carRental.status}}
+            </span>
+            <select class="form-select w-50" #rentalStatusInput>
+              <option selected>{{carRental.status}}</option>
+              <option value="RESERVED">RESERVED</option>
+              <option value="TAKEN">TAKEN</option>
+              <option value="RETURNED">RETURNED</option>
+              <option value="CANCELLED">CANCELLED</option>
+            </select>
+            <button class="btn btn-secondary" (click)="saveNewStatus(rentalStatusInput.value)">Save</button>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div class="text-success">
@@ -96,10 +106,6 @@
             <span class="text-success" *ngIf="carRental.driverPhoneNumber">
             {{carRental.driverPhoneNumber}}
           </span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed w-100"
-              *ngIf="carRental.status == 'RESERVED'">
-            <button class="btn btn-danger w-100" (click)="cancelCarRental()">Cancel</button>
           </li>
         </ul>
       </div>

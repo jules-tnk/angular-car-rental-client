@@ -1,6 +1,6 @@
 export interface Payment {
-  method: string,
   carRentalId: number,
+  method: string,
   date: Date,
   amount: number
 }

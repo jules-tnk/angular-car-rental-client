@@ -7,4 +7,5 @@ export interface CarDescription {
   color: string;
   imgUrl: string;
   pricePerHour: number;
+  pricePerDay: number;
 }
