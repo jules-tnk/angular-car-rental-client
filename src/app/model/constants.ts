@@ -11,11 +11,13 @@ export const apiParam = {
   RENTAL_REQUEST_PATH: "/api-client/rental",
   RENTAL_DETAIL_PATH: "/api-client/history",
   CANCEL_RENTAL_PATH: "/api-client/cancel",
+  ADD_PAYMENT_CLIENT_PATH: "/api-client/add/payment",
 
   /*AGENT API*/
   RENTAL_HISTORY_PATH: "/api-agent/rental/history",
-  ADD_PAYMENT_PATH: "/api-agent/add/payment",
+  ADD_PAYMENT_AGENT_PATH: "/api-agent/add/payment",
   UPDATE_RENTAL_STATUS_PATH: "/api-agent/rental/update-status",
+
 
 }
 

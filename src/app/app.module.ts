@@ -35,6 +35,7 @@ import { MissionDetailComponent } from './components/user-component/mission-deta
 import { CarRentalManageListComponent } from './components/user-component/car-rental-manage-list/car-rental-manage-list.component';
 import { CarRentalManageDetailComponent } from './components/user-component/car-rental-manage-detail/car-rental-manage-detail.component';
 import { AddPaymentComponent } from './components/user-component/add-payment/add-payment.component';
+import { AddPaymentTenantComponent } from './components/user-component/add-payment-tenant/add-payment-tenant.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AddPaymentComponent } from './components/user-component/add-payment/add
     MissionDetailComponent,
     CarRentalManageListComponent,
     CarRentalManageDetailComponent,
-    AddPaymentComponent
+    AddPaymentComponent,
+    AddPaymentTenantComponent
   ],
     imports: [
         BrowserModule,

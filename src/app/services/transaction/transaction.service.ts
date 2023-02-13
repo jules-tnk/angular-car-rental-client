@@ -49,8 +49,13 @@ export class TransactionService {
     return this.http.get<CarRental[]>(carRentalHistoryUrl);
   }
 
-  addPayement(payment: Payment){
-    let addPayementUrl = apiParam.BASE_URL + apiParam.ADD_PAYMENT_PATH;
+  addPayementAgent(payment: Payment){
+    let addPayementUrl = apiParam.BASE_URL + apiParam.ADD_PAYMENT_AGENT_PATH;
+    return this.http.post<Observable<HttpResponse<any>>>(addPayementUrl, payment, {observe: 'response'});
+  }
+
+  addPayementClient(payment: Payment){
+    let addPayementUrl = apiParam.BASE_URL + apiParam.ADD_PAYMENT_CLIENT_PATH;
     return this.http.post<Observable<HttpResponse<any>>>(addPayementUrl, payment, {observe: 'response'});
   }
 

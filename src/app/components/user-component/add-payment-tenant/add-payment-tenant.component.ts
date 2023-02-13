@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {CarRental} from "../../../model/carRental";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TransactionService} from "../../../services/transaction/transaction.service";
-import {Payment} from "../../../model/payment";
 import {Location} from "@angular/common";
+import {Payment} from "../../../model/payment";
 
 @Component({
-  selector: 'app-add-payment',
-  templateUrl: './add-payment.component.html',
-  styleUrls: ['./add-payment.component.scss']
+  selector: 'app-add-payment-tenant',
+  templateUrl: './add-payment-tenant.component.html',
+  styleUrls: ['./add-payment-tenant.component.scss']
 })
-export class AddPaymentComponent implements OnInit {
+export class AddPaymentTenantComponent implements OnInit {
+
   carRental?: CarRental;
   constructor(private route: ActivatedRoute,
               private router:Router,
@@ -56,7 +57,7 @@ export class AddPaymentComponent implements OnInit {
       }
 
       /*send add payment request*/
-      this.transactionService.addPayementAgent(payment).subscribe(
+      this.transactionService.addPayementClient(payment).subscribe(
         response => {
           if (response.status == 200){
             this.location.back();

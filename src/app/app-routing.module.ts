@@ -22,6 +22,7 @@ import {
   CarRentalManageDetailComponent
 } from "./components/user-component/car-rental-manage-detail/car-rental-manage-detail.component";
 import {AddPaymentComponent} from "./components/user-component/add-payment/add-payment.component";
+import {AddPaymentTenantComponent} from "./components/user-component/add-payment-tenant/add-payment-tenant.component";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: "rent/:id", component: RentalRequestComponent, canActivate: [authGuard]},
   {path: "profile", component: ProfileComponent, canActivate: [authGuard]},
   {path: "rent/history/:id", component: CarRentalDetailComponent, canActivate: [authGuard]},
+  {path: "payment/add/:id", component: AddPaymentTenantComponent, canActivate: [authGuard]},
   {path: "mission/history/:id", component: MissionDetailComponent, canActivate: [authGuard]},
   {path: "agent/manage/rent", component: CarRentalManageListComponent, canActivate: [authGuard]},
   {path: "agent/manage/rent/:id", component: CarRentalManageDetailComponent, canActivate: [authGuard]},
